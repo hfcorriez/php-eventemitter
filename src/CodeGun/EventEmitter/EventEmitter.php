@@ -81,7 +81,14 @@ class EventEmitter
      */
     public function off($event, \Closure $listener)
     {
-        $this->removeListener($event, $listener);
+        $event = strtolower($event);
+        if (!empty($this->listeners[$event])) {
+            // Find Listener index
+            if (($key = array_search($listener, $event)) !== false) {
+                // Remove it
+                unset($this->listeners[$event][$key]);
+            }
+        }
     }
 
     /**
@@ -99,6 +106,18 @@ class EventEmitter
     }
 
     /**
+     * Attach a event listener
+     *
+     * @static
+     * @param array|string $event
+     * @param \Closure     $listener
+     */
+    public function addListener($event, \Closure $listener)
+    {
+        $this->on($event, $listener);
+    }
+
+    /**
      * Detach a event listener
      *
      * @static
@@ -107,14 +126,7 @@ class EventEmitter
      */
     public function removeListener($event, \Closure $listener)
     {
-        $event = strtolower($event);
-        if (!empty($this->listeners[$event])) {
-            // Find Listener index
-            if (($key = array_search($listener, $event)) !== false) {
-                // Remove it
-                unset($this->listeners[$event][$key]);
-            }
-        }
+        $this->off($event, $listener);
     }
 
     /**
