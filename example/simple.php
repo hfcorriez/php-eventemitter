@@ -16,8 +16,3 @@ Event::on('save', function ($arg) {
 });
 
 Event::emit('save', 'test');
-
-
-
-
-

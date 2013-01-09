@@ -16,8 +16,3 @@ Event::emit('new');
 
 // Can not emit
 Event::emit('new');
-
-
-
-
-

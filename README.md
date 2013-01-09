@@ -31,6 +31,20 @@ Event::on('save', function ($arg) {
 Event::emit('save', 'test');
 ```
 
+### Once emit usage
+
+```php
+Event::once('new', function () {
+    echo 'A new client is coming' . PHP_EOL;
+});
+
+// Emit
+Event::emit('new');
+
+// Can not emit
+Event::emit('new');
+```
+
 ### Use your event emitter
 
 ```php
