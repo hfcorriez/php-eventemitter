@@ -29,9 +29,23 @@ class EventEmitter
             }
 
             // Loop listeners for callback
-            foreach ($this->listeners[$event] as $listener) {
-                // Closure Listener
-                call_user_func_array($listener, $args);
+            foreach ($this->listeners[$event] as $i => $listener) {
+                if ($listener instanceof \Closure) {
+                    // Closure Listener
+                    call_user_func_array($listener, $args);
+                } elseif (is_array($listener) && $listener[0] instanceof \Closure) {
+                    // Closure Listener
+                    call_user_func_array($listener[0], $args);
+
+                    // Process option
+                    $_option = (array)$listener[1];
+
+                    // If emit once
+                    if ($_option['once']) {
+                        // Remove from listeners
+                        unset($this->listeners[$event][$i]);
+                    }
+                }
             }
         }
     }
@@ -46,6 +60,17 @@ class EventEmitter
     public function on($event, \Closure $listener)
     {
         $this->listeners[strtolower($event)][] = $listener;
+    }
+
+    /**
+     * Attach a listener to emit once
+     *
+     * @param string   $event
+     * @param callable $listener
+     */
+    public function once($event, \Closure $listener)
+    {
+        $this->listeners[strtolower($event)][] = array($listener, array('once' => true));
     }
 
     /**

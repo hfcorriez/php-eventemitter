@@ -32,6 +32,17 @@ class Event
     }
 
     /**
+     * Register event
+     *
+     * @param string   $event
+     * @param callable $listener
+     */
+    public static function once($event, \Closure $listener)
+    {
+        static::emitter()->once($event, $listener);
+    }
+
+    /**
      * Remove listener of giving event
      *
      * @param string   $event
