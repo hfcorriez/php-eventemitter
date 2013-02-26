@@ -34,8 +34,8 @@ class Event
     /**
      * Register event
      *
-     * @param string   $event
-     * @param callable $listener
+     * @param array|string $event
+     * @param callable     $listener
      */
     public static function once($event, \Closure $listener)
     {
@@ -45,8 +45,8 @@ class Event
     /**
      * Remove listener of giving event
      *
-     * @param string   $event
-     * @param callable $listener
+     * @param array|string $event
+     * @param callable     $listener
      */
     public static function off($event, \Closure $listener)
     {

@@ -59,34 +59,52 @@ class EventEmitter
      */
     public function on($event, \Closure $listener)
     {
-        $this->listeners[strtolower($event)][] = $listener;
+        if (is_array($event)) {
+            foreach ($event as $e) {
+                $this->listeners[strtolower($e)][] = $listener;
+            }
+        } else {
+            $this->listeners[strtolower($event)][] = $listener;
+        }
     }
 
     /**
      * Attach a listener to emit once
      *
-     * @param string   $event
-     * @param callable $listener
+     * @param array|string $event
+     * @param callable     $listener
      */
     public function once($event, \Closure $listener)
     {
-        $this->listeners[strtolower($event)][] = array($listener, array('once' => true));
+        if (is_array($event)) {
+            foreach ($event as $e) {
+                $this->listeners[strtolower($e)][] = array($listener, array('once' => true));
+            }
+        } else {
+            $this->listeners[strtolower($event)][] = array($listener, array('once' => true));
+        }
     }
 
     /**
      * Alias for removeListener
      *
-     * @param string   $event
-     * @param callable $listener
+     * @param array|string $event
+     * @param callable     $listener
      */
     public function off($event, \Closure $listener)
     {
-        $event = strtolower($event);
-        if (!empty($this->listeners[$event])) {
-            // Find Listener index
-            if (($key = array_search($listener, $event)) !== false) {
-                // Remove it
-                unset($this->listeners[$event][$key]);
+        if (is_array($event)) {
+            foreach ($event as $e) {
+                $this->off($e, $listener);
+            }
+        } else {
+            $event = strtolower($event);
+            if (!empty($this->listeners[$event])) {
+                // Find Listener index
+                if (($key = array_search($listener, $event)) !== false) {
+                    // Remove it
+                    unset($this->listeners[$event][$key]);
+                }
             }
         }
     }
