@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "CodeGun\\EventEmitter": "src/"
+            "CodeGun\\EventEmitter": "lib/"
         }
     }
 }
