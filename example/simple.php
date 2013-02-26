@@ -2,8 +2,8 @@
 
 namespace CodeGun\Event;
 
-require __DIR__ . '/../src/CodeGun/EventEmitter/Event.php';
-require __DIR__ . '/../src/CodeGun/EventEmitter/EventEmitter.php';
+require __DIR__ . '/../lib/CodeGun/EventEmitter/Event.php';
+require __DIR__ . '/../lib/CodeGun/EventEmitter/EventEmitter.php';
 
 use CodeGun\EventEmitter\Event;
 
