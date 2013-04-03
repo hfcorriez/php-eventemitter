@@ -6,12 +6,12 @@ Simple Event Emitter for PHP
 Install
 ==============
 
-Add `codegun/eventemitter` to `composer.json` then install with `composer.phar install`
+Add `pagon/eventemitter` to `composer.json` then install with `composer.phar install`
 
 Namespace
 ==============
 
-All the classes under `CodeGun\EventEmitter` namespace
+All the classes under `Pagon\EventEmitter` namespace
 
 - Event
 - EventEmitter

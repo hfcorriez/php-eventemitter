@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeGun\EventEmitter;
+namespace Pagon\EventEmitter;
 
 class EventEmitter
 {

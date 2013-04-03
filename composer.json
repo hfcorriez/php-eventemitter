@@ -1,5 +1,5 @@
 {
-    "name": "codegun/eventemitter",
+    "name": "pagon/eventemitter",
     "description": "Event Emitter for PHP",
     "keywords": ["event", "event emitter"],
     "license": "MIT",
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "CodeGun\\EventEmitter": "lib/"
+            "Pagon\\EventEmitter": "lib/"
         }
     }
 }
