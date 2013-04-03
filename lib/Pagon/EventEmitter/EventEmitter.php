@@ -101,7 +101,7 @@ class EventEmitter
             $event = strtolower($event);
             if (!empty($this->listeners[$event])) {
                 // Find Listener index
-                if (($key = array_search($listener, $event)) !== false) {
+                if (($key = array_search($listener, $this->listeners[$event])) !== false) {
                     // Remove it
                     unset($this->listeners[$event][$key]);
                 }
