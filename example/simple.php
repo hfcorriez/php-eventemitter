@@ -2,10 +2,10 @@
 
 namespace Pagon\Event;
 
-require __DIR__ . '/../lib/Pagon/EventEmitter/Event.php';
-require __DIR__ . '/../lib/Pagon/EventEmitter/EventEmitter.php';
+require __DIR__ . '/../lib/Pagon/Event.php';
+require __DIR__ . '/../lib/Pagon/EventEmitter.php';
 
-use Pagon\EventEmitter\Event;
+use Pagon\Event;
 
 Event::on('save', function ($arg) {
     echo '1 saved: ' . $arg . PHP_EOL;

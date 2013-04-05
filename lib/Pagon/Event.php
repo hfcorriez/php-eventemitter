@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagon\EventEmitter;
+namespace Pagon;
 
 class Event
 {
