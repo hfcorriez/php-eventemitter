@@ -152,16 +152,12 @@ class EventEmitter
      *
      * @param string $event
      */
-    public function removeAllListeners($event)
+    public function removeAllListeners($event = null)
     {
-        $this->listeners[$event] = array();
-    }
-
-    /**
-     * Remove all of all listeners
-     */
-    public function removeAllOfAllListeners()
-    {
-        $this->listeners = array();
+        if ($event !== null) {
+            $this->listeners[$event] = array();
+        } else {
+            $this->listeners = array();
+        }
     }
 }
