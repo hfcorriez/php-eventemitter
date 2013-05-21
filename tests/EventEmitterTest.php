@@ -26,15 +26,19 @@ class EventEmitterTest extends \PHPUnit_Framework_TestCase
     public function testEmit()
     {
         $GLOBALS['emit_result'] = 0;
-        $closure = function () {
+        $GLOBALS['emit_arg'] = '';
+        $closure = function ($arg) {
             $GLOBALS['emit_result'] = 1;
+            $GLOBALS['emit_arg'] = $arg;
         };
 
         $this->event->on('test', $closure);
 
         $this->assertEquals(0, $GLOBALS['emit_result']);
-        $this->event->emit('test');
+        $this->assertEquals('', $GLOBALS['emit_arg']);
+        $this->event->emit('test', 'go');
         $this->assertEquals(1, $GLOBALS['emit_result']);
+        $this->assertEquals('go', $GLOBALS['emit_arg']);
     }
 
     public function testOnce()
@@ -111,5 +115,45 @@ class EventEmitterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $GLOBALS['emit_result']);
         $this->event->emit('b');
         $this->assertEquals(3, $GLOBALS['emit_result']);
+    }
+
+    public function testOff()
+    {
+        $closure = function () {
+        };
+        $closure1 = function () {
+        };
+
+        $this->event->addListener('test', $closure);
+        $this->event->addListener('test', $closure1);
+
+        $this->assertEquals(array($closure, $closure1), $this->event->listeners('test'));
+
+        $this->event->removeListener('test', $closure);
+
+        $this->assertEquals(array(1 => $closure1), $this->event->listeners('test'));
+    }
+
+    public function testRemoveAll()
+    {
+        $closure = function () {
+        };
+        $closure1 = function () {
+        };
+
+        $this->event->on('test', $closure);
+        $this->event->on('test', $closure1);
+        $this->event->on('test1', $closure1);
+
+        $this->assertEquals(array($closure, $closure1), $this->event->listeners('test'));
+        $this->assertEquals(array($closure1), $this->event->listeners('test1'));
+
+        $this->event->removeAllListeners('test');
+
+        $this->assertEquals(array(), $this->event->listeners('test'));
+
+        $this->event->removeAllListeners();
+
+        $this->assertEquals(array(), $this->event->listeners('test1'));
     }
 }

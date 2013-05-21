@@ -194,10 +194,10 @@ class EventEmitter
      */
     public function removeAllListeners($event = null)
     {
-        if ($event !== null) {
-            $this->listeners[$event] = array();
-        } else {
+        if ($event === null) {
             $this->listeners = array();
+        } else if (($event = strtolower($event)) && !empty($this->listeners[$event])) {
+            $this->listeners[$event] = array();
         }
     }
 
