@@ -45,6 +45,30 @@ Event::emit('new');
 Event::emit('new');
 ```
 
+### Many emit usage
+
+```php
+Event::many('new', 2, function () {
+    echo 'A new client is coming' . PHP_EOL;
+});
+
+Event::emit('new'); // Trigged
+Event::emit('new'); // Trigged
+Event::emit('new'); // Can not Trigged
+```
+
+### Pattern Register
+
+```php
+Event::on('news.*', function($event){
+    echo $event . ' is comming...';
+});
+
+Event::emit('news.1');
+Event::emit('news.2');
+Event::emit('news.3');
+```
+
 ### Use your event emitter
 
 ```php
