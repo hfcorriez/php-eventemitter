@@ -1,4 +1,4 @@
-Intro
+EventEmitter [![Build Status](https://travis-ci.org/hfcorriez/php-eventemitter.png)](https://travis-ci.org/hfcorriez/php-eventemitter)
 =========
 
 Simple Event Emitter for PHP
