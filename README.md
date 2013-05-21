@@ -11,7 +11,7 @@ Add `pagon/eventemitter` to `composer.json` then install with `composer.phar ins
 Namespace
 ==============
 
-All the classes under `Pagon\EventEmitter` namespace
+All the classes under `Pagon` namespace
 
 - Event
 - EventEmitter
