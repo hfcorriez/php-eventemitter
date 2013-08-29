@@ -7,7 +7,7 @@ class Event
     /**
      * @var EventEmitter
      */
-    protected static $emitter;
+    public static $default;
 
     /**
      * Emit the event
@@ -94,10 +94,10 @@ class Event
     public static function emitter(EventEmitter $emitter = null, $force = false)
     {
         if ($force) {
-            static::$emitter = $emitter;
-        } else if (!static::$emitter) {
-            static::$emitter = $emitter ? $emitter : new EventEmitter();
+            static::$default = $emitter;
+        } else if (!static::$default) {
+            static::$default = $emitter ? $emitter : new EventEmitter();
         }
-        return static::$emitter;
+        return static::$default;
     }
 }
