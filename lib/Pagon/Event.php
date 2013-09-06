@@ -7,17 +7,18 @@ class Event
     /**
      * @var EventEmitter
      */
-    public static $default;
+    public static $default_emitter;
 
     /**
      * Emit the event
      *
      * @param string $event
      * @param mixed  $args
+     * @return boolean
      */
     public static function emit($event, $args = null)
     {
-        call_user_func_array(array(static::emitter(), 'emit'), func_get_args());
+        return call_user_func_array(array(static::emitter(), 'emit'), func_get_args());
     }
 
     /**
@@ -25,10 +26,11 @@ class Event
      *
      * @param string   $event
      * @param callable $listener
+     * @return EventEmitter
      */
     public static function on($event, \Closure $listener)
     {
-        static::emitter()->on($event, $listener);
+        return static::emitter()->on($event, $listener);
     }
 
     /**
@@ -36,10 +38,24 @@ class Event
      *
      * @param array|string $event
      * @param callable     $listener
+     * @return EventEmitter
      */
     public static function once($event, \Closure $listener)
     {
-        static::emitter()->once($event, $listener);
+        return static::emitter()->once($event, $listener);
+    }
+
+    /**
+     * Attach a listener to emit many times
+     *
+     * @param array|string $event
+     * @param int          $times
+     * @param callable     $listener
+     * @return EventEmitter
+     */
+    public static function many($event, $times = 1, \Closure $listener)
+    {
+        return static::emitter()->many($event, $times, $listener);
     }
 
     /**
@@ -47,20 +63,22 @@ class Event
      *
      * @param array|string $event
      * @param callable     $listener
+     * @return EventEmitter
      */
     public static function off($event, \Closure $listener)
     {
-        static::emitter()->off($event, $listener);
+        return static::emitter()->off($event, $listener);
     }
 
     /**
      * Get all listeners of giving event
      *
      * @param string $event
+     * @return array
      */
     public static function listeners($event)
     {
-        static::emitter()->listeners($event);
+        return static::emitter()->listeners($event);
     }
 
     /**
@@ -68,36 +86,35 @@ class Event
      *
      * @param string   $event
      * @param callable $listener
+     * @return EventEmitter
      */
     public static function removeListener($event, \Closure $listener)
     {
-        static::emitter()->removeListener($event, $listener);
+        return static::emitter()->removeListener($event, $listener);
     }
 
     /**
      * Remove all of event listeners
      *
      * @param $event
+     * @return EventEmitter
      */
     public static function removeAllListeners($event)
     {
-        static::emitter()->removeAllListeners($event);
+        return static::emitter()->removeAllListeners($event);
     }
 
     /**
      * Set or get emitter
      *
      * @param EventEmitter $emitter
-     * @param bool         $force
      * @return EventEmitter
      */
-    public static function emitter(EventEmitter $emitter = null, $force = false)
+    public static function emitter(EventEmitter $emitter = null)
     {
-        if ($force) {
-            static::$default = $emitter;
-        } else if (!static::$default) {
-            static::$default = $emitter ? $emitter : new EventEmitter();
+        if ($emitter) {
+            static::$default_emitter = $emitter;
         }
-        return static::$default;
+        return static::$default_emitter;
     }
 }

@@ -119,7 +119,7 @@ class EventEmitter
     }
 
     /**
-     * Attach a listener to emit once
+     * Attach a listener to emit many times
      *
      * @param array|string $event
      * @param int          $times
