@@ -1,3 +1,5 @@
+Other Languages：[English](./README_en.md)
+
 # 介绍 [![Build Status](https://travis-ci.org/hfcorriez/php-eventemitter.png)](https://travis-ci.org/hfcorriez/php-eventemitter)
 
 简单的事件管理器
