@@ -1,71 +1,71 @@
-# 介绍 [![Build Status](https://travis-ci.org/hfcorriez/php-eventemitter.png)](https://travis-ci.org/hfcorriez/php-eventemitter)
+# Intro [![Build Status](https://travis-ci.org/hfcorriez/php-eventemitter.png)](https://travis-ci.org/hfcorriez/php-eventemitter)
 
-简单的事件管理器
+A simple EventEmitter
 
-# 安装
+# Install
 
-添加 `"pagon/eventemitter": "*"` 到 `composer.json`
+Add `"pagon/eventemitter": "*"` to `composer.json`
 
 ```
 composer.phar install
 ```
 
-# 使用方式
+# Usage
 
-## 触发和绑定
+## Bind and Emit
 
-### 简单方式
+### Simple
 
 ```php
 $event = new EventEmitter();
 
-// 绑定事件
+// Bind event
 $event->on('new', function () {
     echo 'A new client is coming' . PHP_EOL;
 });
 
-// 触发
+// Trigger
 $event->emit('new');
 ```
 
-### 单次绑定
+### Bind once
 
 ```php
 $event = new EventEmitter();
 
-// 绑定单次事件
+// Bind event once
 $event->once('new', function () {
     echo 'A new client is coming' . PHP_EOL;
 });
 
-// 触发
+// Trigger
 $event->emit('new');
 
-// 不触发
+// Not trigger
 $event->emit('new');
 ```
 
-### 多次绑定
+### Bind many times
 
 ```php
 $event = new EventEmitter();
 
-// 绑定2次事件
+// Bind event twice
 $event->many('new', 2, function () {
     echo 'A new client is coming' . PHP_EOL;
 });
 
-$event->emit('new'); // 触发
-$event->emit('new'); // 触发
-$event->emit('new'); // 不触发
+$event->emit('new'); // Trigger
+$event->emit('new'); // Trigger
+$event->emit('new'); // No trigger
 ```
 
-### 模糊绑定
+### Bind fuzzy
 
 ```php
 $event = new EventEmitter();
 
-// 绑定模糊事件
+// Bind fuzzy event
 $event->on('news.*', function($id){
     echo $id . ' is comming..., ID is ';
 });
@@ -75,27 +75,27 @@ $event->emit('news.2');
 $event->emit('news.3');
 ```
 
-## 删除
+## Remove
 
-### 注销事件
+### Unbind Event
 
 ```php
 $event = new EventEmitter();
 
-// 闭包回调
+// Closure
 $operator = function () {
     echo 'A new client is coming' . PHP_EOL;
 };
 
 $event->on('new', $operator);
 
-$event->emit('new');           // 触发
+$event->emit('new');    // Trigger
 
-$event->off('new', $operator); // 解除绑定
-$event->emit('new');           // 不触发
+$event->off('new', $operator); // Unbind
+$event->emit('new');    // No Trigger
 ```
 
-### 删除事件
+### Remove Events
 
 ```php
 $event = new EventEmitter();
@@ -107,7 +107,7 @@ $event->on('new', function () {
 $event->removeAllListeners('new');
 ```
 
-### 删除所有事件
+### Remove all events
 
 ```php
 $event = new EventEmitter();
@@ -123,9 +123,9 @@ $event->on('close', function () {
 $event->removeAllListeners();
 ```
 
-### 继承事件功能
+### Extends class
 
-适用于为自己的对象增加事件功能
+Add event feature for your class
 
 ```php
 class MyClass extends EventEmitter {
@@ -137,39 +137,38 @@ $my->on('create', function($data){
 });
 ```
 
-## 全局管理器
+## Global Events
 
-### 全局事件
+### Global
 
-可以作为默认时间管理器使用
+Use as default event manager
 
 ```php
-// 注册事件
+// Register event listener
 Event::on('save', function ($arg) {
     echo '1 saved: ' . $arg . PHP_EOL;
 });
 
-// 触发事件
+// Emit the event
 Event::emit('save', 'test');
 ```
 
-### 更换全局事件管理器
+### Change default event manager
 
 ```php
 $emitter = new EventEmitter();
-// 更换触发器
+// Change default event manager
 Event::emitter($emitter);
 
-// 绑定事件
 $event->on('save', function ($arg) {
     echo '1 saved: ' . $arg . PHP_EOL;
 });
 
-// 触发save
+// Emit the save
 $event->emit('save', 'test');
 
-// 效果同上
-$emitter->emit('save', 'test');
+// This is same as above
+$emitter->emit('save');
 ```
 
 License
