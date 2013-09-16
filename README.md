@@ -18,6 +18,8 @@ composer.phar install
 
 ### 简单方式
 
+很简单的使用方式
+
 ```php
 $event = new EventEmitter();
 
@@ -31,6 +33,8 @@ $event->emit('new');
 ```
 
 ### 单次绑定
+
+绑定的事件只会被触发一次，适合第一次做一些事情的时候去使用
 
 ```php
 $event = new EventEmitter();
@@ -49,6 +53,8 @@ $event->emit('new');
 
 ### 多次绑定
 
+绑定的事件被触发N次，适合一些有固定用途的事件
+
 ```php
 $event = new EventEmitter();
 
@@ -63,6 +69,8 @@ $event->emit('new'); // 不触发
 ```
 
 ### 模糊绑定
+
+绑定一个模糊的事件名称，可以匹配上的事件都会被触发
 
 ```php
 $event = new EventEmitter();
@@ -80,6 +88,8 @@ $event->emit('news.3');
 ## 删除
 
 ### 注销事件
+
+当事件不用的时候可以注销掉
 
 ```php
 $event = new EventEmitter();
@@ -99,6 +109,8 @@ $event->emit('new');           // 不触发
 
 ### 删除事件
 
+删除指定类型的所有事件
+
 ```php
 $event = new EventEmitter();
 
@@ -110,6 +122,8 @@ $event->removeAllListeners('new');
 ```
 
 ### 删除所有事件
+
+清空事件
 
 ```php
 $event = new EventEmitter();
@@ -143,7 +157,7 @@ $my->on('create', function($data){
 
 ### 全局事件
 
-可以作为默认时间管理器使用
+可以作为默认是件管理器使用
 
 ```php
 // 注册事件
