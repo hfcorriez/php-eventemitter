@@ -89,12 +89,8 @@ class EventEmitter
      */
     public function on($event, \Closure $listener)
     {
-        if (is_array($event)) {
-            foreach ($event as $e) {
-                $this->listeners[strtolower($e)][] = $listener;
-            }
-        } else {
-            $this->listeners[strtolower($event)][] = $listener;
+        foreach ((array)$event as $e) {
+            $this->listeners[strtolower($e)][] = $listener;
         }
         return $this;
     }
@@ -108,12 +104,8 @@ class EventEmitter
      */
     public function once($event, \Closure $listener)
     {
-        if (is_array($event)) {
-            foreach ($event as $e) {
-                $this->listeners[strtolower($e)][] = array($listener, array('times' => 1));
-            }
-        } else {
-            $this->listeners[strtolower($event)][] = array($listener, array('times' => 1));
+        foreach ((array)$event as $e) {
+            $this->listeners[strtolower($e)][] = array($listener, array('times' => 1));
         }
         return $this;
     }
@@ -128,12 +120,8 @@ class EventEmitter
      */
     public function many($event, $times = 1, \Closure $listener)
     {
-        if (is_array($event)) {
-            foreach ($event as $e) {
-                $this->listeners[strtolower($e)][] = array($listener, array('times' => $times));
-            }
-        } else {
-            $this->listeners[strtolower($event)][] = array($listener, array('times' => $times));
+        foreach ((array)$event as $e) {
+            $this->listeners[strtolower($e)][] = array($listener, array('times' => $times));
         }
         return $this;
     }
@@ -147,17 +135,13 @@ class EventEmitter
      */
     public function off($event, \Closure $listener)
     {
-        if (is_array($event)) {
-            foreach ($event as $e) {
-                $this->off($e, $listener);
-            }
-        } else {
-            $event = strtolower($event);
-            if (!empty($this->listeners[$event])) {
+        foreach ((array)$event as $e) {
+            $e = strtolower($e);
+            if (!empty($this->listeners[$e])) {
                 // Find Listener index
-                if (($key = array_search($listener, $this->listeners[$event])) !== false) {
+                if (($key = array_search($listener, $this->listeners[$e])) !== false) {
                     // Remove it
-                    unset($this->listeners[$event][$key]);
+                    unset($this->listeners[$e][$key]);
                 }
             }
         }
